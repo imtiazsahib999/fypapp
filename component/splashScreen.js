@@ -7,15 +7,55 @@
  */
 
 import React from 'react';
-import {View, StatusBar, Image} from 'react-native';
+import {View, StatusBar, AsyncStorage, Image} from 'react-native';
 import {Container, Body, Title} from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 const App = () => {
+  const[token, setToken] = React.useState()
     let navigation = useNavigation()
     setTimeout(() => {
         navigation.navigate("Welcome")
     }, 1000);
+    React.useEffect(() =>{
+      // _getStoregetData()
+    },[])
+
+
+    // const _getStoregetData = async () => {
+    //   try {
+    //     const data = await AsyncStorage.getItem('User');
+    //     var mdata = JSON.parse(data);
+    //     if (data !== null) {
+    //       let currentUser = mdata
+    //       if (data.auth === true) {
+            
+    //         setToken(currentUser.token);
+  
+    //         const resetAction = StackActions.reset({
+    //           index: 0,
+    //           key: null,
+    //           actions: [NavigationActions.navigate({ routeName: 'Nav' })],
+    //         });
+    //         navigation.dispatch(resetAction);
+    //         // navigation.navigate('home')
+  
+    //       }
+  
+    //     } else {
+  
+    //       const resetAction = StackActions.reset({
+    //         index: 0,
+    //         actions: [NavigationActions.navigate({ routeName: 'login' })],
+    //       });
+    //       navigation.dispatch(resetAction);
+    //       // navigation.navigate('login')
+    //     }
+    //   }
+    //   catch (error) {
+    //     console.log("Exception =" + error);
+    //   }
+    // }
   return (
     <Container
       style={{

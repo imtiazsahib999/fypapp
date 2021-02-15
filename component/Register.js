@@ -7,7 +7,7 @@
  */
 
 import React, {useState} from 'react';
-import {View, StatusBar, Platform, TextInput, Alert, StyleSheet} from 'react-native';
+import {View, StatusBar, Platform, TextInput, Alert, StyleSheet, AsyncStorage} from 'react-native';
 import {
   Container,
   Button,
@@ -17,18 +17,12 @@ import {
   Icon,
   Header,
 } from 'native-base';
+import {NavigationActions, StackActions} from 'react-navigation';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {API_URL} from '../component/constants/constans'; 
 
-
-
-
-
-
-
-
-const App = () => {
+const App = (navigation, props) => {
   let [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(1598051730000));
   const [loading, setLoading] = React.useState(false)
@@ -79,20 +73,29 @@ const App = () => {
   
           .then((response) => response.json())
           .then((responseData) => {
-            // alert(JSON.stringify(responseData))
+            console.log(responseData)
               setLoading(false)
-              if (responseData.message === 'The given data was invalid.' 
-                 && responseData.errors ){ 
-                  alert(JSON.stringify(responseData.message)) 
-                  alert(JSON.stringify(responseData.erros))}
-                 else if(responseData.access_token === 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvcmVhY3QuY29kdXBjbG91ZC5jb21cL2FwaVwvc2lnbnVwIiwiaWF0IjoxNjEzMTI4MzgxLCJuYmYiOjE2MTMxMjgzODEsImp0aSI6IjJzanNQa2QxMTAxMU9yOGIiLCJzdWIiOjE2LCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.GF42dW6JIC1iV2CUjHe-R5-JU5dr_Gj20VZbLTI_KY0' 
-            && responseData.token_type === 'bearer'){
-                alert('Sign in succesfully')
-            }else {
-              alert('Something went wrong')
+              if (responseData.message === 'The given data was invalid.'){ 
+                  alert(JSON.stringify(responseData.errors.email))
+              }else {
+                   let user = {
+                     auth: true,
+                     token: responseData.access_token,
+                     token_type: responseData.token_type
+                     
+                   }
+                   console.log(user)
+                   AsyncStorage.setItem("User", JSON.stringify(user))
+          //          const resetAction = StackActions.reset({
+          //               index: 0,
+          //               actions: [NavigationActions.navigate({ routeName: 'Nav' })],
+          //             });
+          //             props.navigation.dispatch(resetAction); 
+                   navigation.navigate('Nav')
             }
                       
           })
+          
           .catch((error) => {
             alert(error)
             setLoading(false)

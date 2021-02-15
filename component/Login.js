@@ -15,6 +15,7 @@ import {
   Alert,
   StyleSheet,
   KeyboardAvoidingView,
+  AsyncStorage,
 } from 'react-native';
 import {
   Container,
@@ -27,9 +28,10 @@ import {
   Header,
   Label,
 } from 'native-base';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, } from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {API_URL} from '../component/constants/constans';
+import {NavigationActions, StackActions} from 'react-navigation';
 
 
 
@@ -40,6 +42,7 @@ const App = () => {
     const [cnic, setCnic] = React.useState(null)
     const [password, setPassword] = React.useState(null)
 
+    
 
   const loginHandle = () => {
     if (email === null || password === null || cnic === null) {
@@ -67,31 +70,26 @@ const App = () => {
           .then((response) => response.json())
           .then((responseData) => {
             // alert(JSON.stringify(responseData))
-            if(responseData.access_token && responseData.token_type){
-              alert(JSON.stringify(responseData.email))
-                // setUserName(responseData.user.pAds_userUsername)
-                // setFullName(responseData.user.pAds_userfullName)
-                // setUserId(responseData.user.pAds_userID)
-                
-                // let obj = {
-                //     auth: true,
-                //     userId: responseData.user.pAds_userID,
-                //     fullName: responseData.user.pAds_userfullName,
-                //     userName: responseData.user.pAds_userUsername,
-                //     token: responseData.token,
-                //   }
-                //   _storeUser('userAuth', JSON.stringify(obj))
-                //   setLoginLoading(false)
+            if (responseData.status === 'error'){ 
+              alert(JSON.stringify(responseData.message))
+          }else {
+               let user = {
+                 auth: true,
+                 token: responseData.access_token,
+                 token_type: responseData.token_type
+                 
+               }
+               console.log(user)
 
-                //   const resetAction = StackActions.reset({
-                //     index: 0,
-                //     actions: [NavigationActions.navigate({ routeName: 'home' })],
-                //   });
-                //   navigation.dispatch(resetAction);      
-            }else{
-                alert('No data found')
-                setLoginLoading(false)
-            }
+               AsyncStorage.setItem("User", JSON.stringify(user))
+              //  const resetAction = StackActions.reset({
+              //      key: null,
+              //       index: 0,
+              //       actions: [NavigationActions.navigate({ routeName: 'General' })],
+              //     });
+              //     navigation.dispatch(resetAction); 
+              navigation.navigate('Nav')
+        }
                       
           })
           .catch((error) => {

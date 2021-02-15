@@ -13,21 +13,25 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
   key,
 } from 'react-native';
 import {Container, Text, Icon, Item, Input, Card, CardItem} from 'native-base';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
 import Screen1 from './MyServices1';
 import Screen2 from './MyServices2';
-
+import Education from './service/education';
+import Marriage from './service/marriage';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   let navigation = useNavigation();
   let [show, setShow] = useState(false);
+
+
+
 
   return (
     <Container
@@ -120,7 +124,15 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
           }}>
-          <Card style={{width: '40%'}}>
+            <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '3%',
+          }}>
+        </View>
+          <TouchableOpacity  onPress = {() => navigation.navigate('Education')}
+          style={{width: '40%'}}>
             <CardItem
               cardBody
               style={{height: 100, flex: 1, justifyContent: 'center'}}>
@@ -128,12 +140,13 @@ const App = () => {
                 source={require('./assets/3.png')}
                 style={{height: 50, width: 30}}
               />
-            </CardItem>
+            </CardItem> 
             <CardItem style={{justifyContent: 'center'}}>
-              <Text style={styles.text}>Performance</Text>
-            </CardItem>
-          </Card>
-          <Card style={{width: '40%', marginLeft: '3%'}}>
+              <Text style={styles.text}>Education</Text>
+             </CardItem>
+          </TouchableOpacity>
+          <TouchableOpacity onPress = {() => navigation.navigate('Marriage')}
+           style={{width: '40%', marginLeft: '3%'}}>
             <CardItem
               cardBody
               style={{height: 100, flex: 1, justifyContent: 'center'}}>
@@ -143,9 +156,9 @@ const App = () => {
               />
             </CardItem>
             <CardItem style={{justifyContent: 'center'}}>
-              <Text style={styles.text}>Leave</Text>
+              <Text style={styles.text}>Marriage</Text>
             </CardItem>
-          </Card>
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -153,7 +166,8 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
           }}>
-          <Card style={{width: '40%'}}>
+          <TouchableOpacity onPress = {() => navigation.navigate('HouseHelp')}
+           style={{width: '40%'}}>
             <CardItem
               cardBody
               style={{height: 100, flex: 1, justifyContent: 'center'}}>
@@ -163,10 +177,11 @@ const App = () => {
               />
             </CardItem>
             <CardItem style={{justifyContent: 'center'}}>
-              <Text style={styles.text}>Organization</Text>
+              <Text style={styles.text}>House Help</Text>
             </CardItem>
-          </Card>
-          <Card style={{width: '40%', marginLeft: '3%'}}>
+          </TouchableOpacity>
+          <TouchableOpacity onPress = {() => navigation.navigate('Medical')}
+           style={{width: '40%', marginLeft: '3%'}}>
             <CardItem
               cardBody
               style={{height: 100, flex: 1, justifyContent: 'center'}}>
@@ -176,9 +191,9 @@ const App = () => {
               />
             </CardItem>
             <CardItem style={{justifyContent: 'center'}}>
-              <Text style={styles.text}>timesheet</Text>
+              <Text style={styles.text}>Medical</Text>
             </CardItem>
-          </Card>
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -186,7 +201,8 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
           }}>
-          <Card style={{width: '40%'}}>
+          <TouchableOpacity onPress = {() => navigation.navigate('Arbitration')}
+          style={{width: '40%'}}>
             <CardItem
               cardBody
               style={{height: 100, flex: 1, justifyContent: 'center'}}>
@@ -196,10 +212,11 @@ const App = () => {
               />
             </CardItem>
             <CardItem style={{justifyContent: 'center'}}>
-              <Text style={styles.text}>attendance</Text>
+              <Text style={styles.text}>Arbitration</Text>
             </CardItem>
-          </Card>
-          <Card style={{width: '40%', marginLeft: '3%'}}>
+          </TouchableOpacity>
+          <TouchableOpacity  onPress = {() => navigation.navigate('GraveYard')}
+          style={{width: '40%', marginLeft: '3%'}}>
             <CardItem
               cardBody
               style={{height: 100, flex: 1, justifyContent: 'center'}}>
@@ -209,10 +226,66 @@ const App = () => {
               />
             </CardItem>
             <CardItem style={{justifyContent: 'center'}}>
-              <Text style={styles.text}>files</Text>
+              <Text style={styles.text}>GraveYard</Text>
             </CardItem>
-          </Card>
+          </TouchableOpacity>
         </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '3%',
+          }}>
+          <TouchableOpacity onPress = {() => navigation.navigate('Employment')}
+           style={{width: '40%'}}>
+            <CardItem
+              cardBody
+              style={{height: 100, flex: 1, justifyContent: 'center'}}>
+              <Image
+                source={require('./assets/7.png')}
+                style={{height: 40, width: 40}}
+              />
+            </CardItem>
+            <CardItem style={{justifyContent: 'center'}}>
+              <Text style={styles.text}>Employment</Text>
+            </CardItem>
+          </TouchableOpacity>
+          <TouchableOpacity onPress = {() => navigation.navigate('Youth')}
+          style={{width: '40%', marginLeft: '3%'}}>
+            <CardItem
+              cardBody
+              style={{height: 100, flex: 1, justifyContent: 'center'}}>
+              <Image
+                source={require('./assets/5.png')}
+                style={{height: 40, width: 40}}
+              />
+            </CardItem>
+            <CardItem style={{justifyContent: 'center'}}>
+              <Text style={styles.text}>Youth and IT</Text>
+            </CardItem>
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: '3%',
+          }}>
+        <TouchableOpacity  onPress = {() => navigation.navigate('MemberShip')}
+          style={{width: '40%'}}>
+            <CardItem
+              cardBody
+              style={{height: 100, flex: 1, justifyContent: 'center'}}>
+              <Image
+                source={require('./assets/3.png')}
+                style={{height: 50, width: 30}}
+              />
+            </CardItem> 
+            <CardItem style={{justifyContent: 'center'}}>
+              <Text style={styles.text}>Membership Community</Text>
+             </CardItem>
+          </TouchableOpacity>
+          </View>
       </ScrollView>
     </Container>
   );
@@ -220,6 +293,7 @@ const App = () => {
 const Services = () => {
   let [currentScreen, setCurrentScreen] = useState();
   let [show, setShow] = useState(false);
+  
 
   return (
     <Tab.Navigator

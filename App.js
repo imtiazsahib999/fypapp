@@ -30,9 +30,18 @@ import OurServices from './component/OurServices';
 import Settings from './component/Settings';
 import Update_Profile from './component/Update_Profile';
 import Nav from './component/navigator/DrawerNavigator';
+import Education from './component/service/education';
+import Marriage from './component/service/marriage';
+import Medical from './component/service/medical';
+import MemberShip from './component/service/membership';
+import GraveYard from './component/service/graveYard';
+import Arbitration from './component/service/arbitration';
+import HouseHelp from './component/service/houseHelp';
+import Employment from './component/service/employment';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import Youth from './component/service/youthAndIt';
+import ServiceComponent from './component/serviceComponent/serviceComponent';
 const Stack = createStackNavigator();
 
 const MainApp = () => {
@@ -75,6 +84,11 @@ const MainApp = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="Education"
+          component={Education}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="AboutUs"
           component={AboutUs}
           options={{headerShown: false}}
@@ -102,6 +116,51 @@ const MainApp = () => {
         <Stack.Screen
           name="Update_Profile"
           component={Update_Profile}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ServiceComponent"
+          component={ServiceComponent}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Marriage"
+          component={Marriage}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="HouseHelp"
+          component={HouseHelp}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Medical"
+          component={Medical}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MemberShip"
+          component={MemberShip}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Arbitration"
+          component={Arbitration}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Employment"
+          component={Employment}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Youth"
+          component={Youth}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="GraveYard"
+          component={GraveYard}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
