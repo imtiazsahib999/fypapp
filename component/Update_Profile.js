@@ -7,28 +7,98 @@
  */
 
 import React, {useState} from 'react';
-import {View, StatusBar, Platform, StyleSheet} from 'react-native';
+import {View, StatusBar, Platform, TextInput, Alert, StyleSheet, AsyncStorage} from 'react-native';
 import {
   Container,
   Button,
   Text,
   Form,
   Item,
-  Input,
   Icon,
   Header,
 } from 'native-base';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {ScrollView} from 'react-native-gesture-handler';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {API_URL} from './constants/constans'
 const App = () => {
   let [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(1598051730000));
+  const [loading, setLoading] = React.useState(false)
+  const [firstName, setFirstName] = React.useState(null)
+  const [lastName, setLastName] = React.useState(null)
+  const [phone, setPhone] = React.useState(null)
+  const [education, setEducation] = React.useState(null)
+  const [gender, setGender] = React.useState(null)
+  const [token, setToken] = React.useState(null)
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
+    setDate(currentDate);}
+  React.useEffect(() =>  {
+    _getUserData()
+ 
+ }, [])
+
+_getUserData = async () =>{
+    let data = await AsyncStorage.getItem('User')
+    let mdata = JSON.parse(data)
+    if(data != null){
+      let currentUser = mdata
+      setToken(currentUser.token)
+    }
+  }
+    
+
+   const upDateHandle = () => {
+    if (date === null || firstName === null || lastName === null ||
+          phone === null || education === null || gender === null) {
+         
+          Alert.alert(
+              'Wrong Input!',
+              'Fields cannot be empty.',
+              [{ text: 'Okay' }],
+          );
+      }
+      else {
+          setLoading(true)
+          fetch(API_URL+'update_profile', {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'Authorization':'Bearer '+token
+            },
+            body: JSON.stringify({
+              fname: firstName,
+              lname: lastName,
+              phone: phone,
+              education: education,
+              gender: gender,
+              dob: date
+            })
+          })
+    
+            .then((response) => response.json())
+            .then((responseData) => {
+              
+             if(responseData.message === 'User Info updated successfully!'){
+               alert(responseData.message)
+             }else{
+               alert('User not updated')
+             }
+
+                                     
+            })
+            
+            .catch((error) => {
+              alert(error)
+              setLoading(false)
+            })
+      }
+
+   }
+  
   return (
     <Container
       style={{
@@ -73,7 +143,9 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <Input placeholder="" style={{height: 40}} />
+             <TextInput placeholder="update your first name" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setFirstName(val)}
+                />
               <Icon
                 active
                 name="account"
@@ -92,30 +164,13 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <Input placeholder="" style={{height: 40}} />
+             <TextInput placeholder="update your last name" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setLastName(val)}
+                />
               <Icon
                 active
                 name="account"
                 type="MaterialCommunityIcons"
-                style={{fontSize: 18}}
-              />
-            </Item>
-          </View>
-          <View style={styles.inputOuter}>
-            <Text style={{marginLeft: '1%', fontSize: 14}}> Member ID </Text>
-            <Item
-              style={{
-                width: '95%',
-                marginLeft: '2%',
-                borderColor: 'black',
-                borderWidth: 1,
-              }}
-              rounded>
-              <Input placeholder="" style={{height: 40}} />
-              <Icon
-                active
-                name="contacts"
-                type="AntDesign"
                 style={{fontSize: 18}}
               />
             </Item>
@@ -130,22 +185,10 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <Input placeholder="" style={{height: 40}} />
+             <TextInput placeholder="udpate your phone no" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setPhone(val)}
+                />
               <Icon active name="phone" type="Entypo" style={{fontSize: 18}} />
-            </Item>
-          </View>
-          <View style={styles.inputOuter}>
-            <Text style={{marginLeft: '1%', fontSize: 14}}> Email </Text>
-            <Item
-              style={{
-                width: '95%',
-                marginLeft: '2%',
-                borderColor: 'black',
-                borderWidth: 1,
-              }}
-              rounded>
-              <Input placeholder="" style={{height: 40}} />
-              <Icon active name="mail" type="Octicons" style={{fontSize: 18}} />
             </Item>
           </View>
           <View style={styles.inputOuter}>
@@ -158,7 +201,9 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <Input placeholder="" style={{height: 40}} />
+              <TextInput placeholder="updat your educatoin" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setEducation(val)}
+                />
               <Icon
                 active
                 name="book"
@@ -177,7 +222,9 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <Input placeholder="" style={{height: 40}} />
+             <TextInput placeholder="update your first gender" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setGender(val)}
+                />
               <Icon
                 active
                 name="human-male-female"
@@ -196,7 +243,7 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <Input
+              <TextInput
                 placeholder=""
                 style={{height: 40}}
                 value={date.toString().slice(0, 15)}
@@ -220,9 +267,11 @@ const App = () => {
               />
             </Item>
           </View>
-          <Button danger={true} style={styles.btns} rounded>
-        <Text>Update</Text>
-      </Button>
+          <Button danger={true} 
+            onPress={() => upDateHandle()}
+            style={styles.btns} rounded>
+              <Text>Update</Text>
+            </Button>
         </KeyboardAwareScrollView>
       </Form>
 

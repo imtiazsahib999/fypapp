@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 
 import ServiceComponent from '../serviceComponent/serviceComponent';
 
-const  Education = (navigation, props) => {
+const  Education = ({navigation, props}) => {
 
   return (
       

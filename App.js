@@ -42,6 +42,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Youth from './component/service/youthAndIt';
 import ServiceComponent from './component/serviceComponent/serviceComponent';
+import Event from './component/event';
 const Stack = createStackNavigator();
 
 const MainApp = () => {
@@ -161,6 +162,11 @@ const MainApp = () => {
         <Stack.Screen
           name="GraveYard"
           component={GraveYard}
+          options={{headerShown: false}}
+        />
+         <Stack.Screen
+          name="Event"
+          component={Event}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

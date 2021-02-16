@@ -118,9 +118,11 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
             height:'50%',
-            width: "100%"
+            width: "100%",
+            backgroundColor:'red'
           }}>
-          <ActivityIndicator  size="large" color="#fe019a" style={{marginTop:"50%"}}/>
+          {/* <ActivityIndicator  size="large" color="#fe019a" style={{marginTop:"50%"}}/> */}
+          <Text style={{fontSize:30}}> Hello </Text>
         </View>
       </ScrollView>
     </Container>

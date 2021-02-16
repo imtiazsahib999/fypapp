@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 
 import ServiceComponent from '../serviceComponent/serviceComponent';
 
-const Employment = (navigation, props) => {
+const Employment = ({navigation, props}) => {
 
   return (
       

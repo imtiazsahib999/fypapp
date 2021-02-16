@@ -82,11 +82,13 @@ const App = ({navigation, ...props}) => {
       
               .then((response) => response.json())
               .then((responseData) => {
-                console.log(responseData)
-                  alert(JSON.stringify(responseData))
-            //       if (responseData.message === 'The given data was invalid.'){ 
-            //           alert(JSON.stringify(responseData.errors.email))
-            //       }else {
+                // console.log(responseData)
+                  // alert(JSON.stringify(responseData))
+                  if (responseData.message === 'Request Successfully Saved!'){ 
+                      alert('Request Successfully Saved!')
+                  }else {
+                    alert('Check the fields')
+                  }
             //            let user = {
             //              auth: true,
             //              token: responseData.access_token,

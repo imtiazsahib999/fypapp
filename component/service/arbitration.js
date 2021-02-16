@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 
 import ServiceComponent from '../serviceComponent/serviceComponent';
 
-const Arbitration = (navigation, props) => {
+const Arbitration = ({navigation, props}) => {
 
   return (
       

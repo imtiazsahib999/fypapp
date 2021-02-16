@@ -24,6 +24,8 @@ import Screen1 from './MyServices1';
 import Screen2 from './MyServices2';
 import Education from './service/education';
 import Marriage from './service/marriage';
+import Event from './event';
+import Approval from './approval';
 const Tab = createBottomTabNavigator();
 
 const App = () => {
@@ -290,7 +292,7 @@ const App = () => {
     </Container>
   );
 };
-const Services = () => {
+const Services = ({navigation}) => {
   let [currentScreen, setCurrentScreen] = useState();
   let [show, setShow] = useState(false);
   
@@ -376,7 +378,7 @@ const Services = () => {
       />
       <Tab.Screen
         name="Home"
-        component={() => <Text></Text>}
+        component={() => ''}
         options={{
           tabBarLabel: () => {
             return (
@@ -438,7 +440,7 @@ const Services = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}
-                  onPress={() => setShow(!show)}>
+                  onPress={() => navigation.navigate('Event')}>
                   <Icon
                     type="Feather"
                     name="plus"
@@ -452,7 +454,7 @@ const Services = () => {
       />
       <Tab.Screen
         name="Home4"
-        component={Screen1}
+        component={Approval}
         options={{
           tabBarLabel: () => {
             return (
@@ -478,7 +480,7 @@ const Services = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={() => setCurrentScreen(Screen1)}>
+              onPress={() =>''}>
               <Icon
                 type="AntDesign"
                 name="checkcircleo"

@@ -10,7 +10,7 @@ import React, {useState} from 'react';
  
 import ServiceComponent from '../serviceComponent/serviceComponent';
 
-const GraveYard = (navigation, props) => {
+const GraveYard = ({navigation, props}) => {
 
   return (
       

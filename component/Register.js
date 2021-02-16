@@ -22,7 +22,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {API_URL} from '../component/constants/constans'; 
 
-const App = (navigation, props) => {
+const App = ({navigation, props}) => {
   let [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(1598051730000));
   const [loading, setLoading] = React.useState(false)

@@ -10,7 +10,7 @@ import React, {useState} from 'react';
 
 import ServiceComponent from '../serviceComponent/serviceComponent';
 
-const Youth = (navigation, props) => {
+const Youth = ({navigation, props}) => {
   return (
       
         <ServiceComponent screenTitle = 'Youth And IT'  navigation = {navigation}>
