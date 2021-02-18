@@ -146,7 +146,7 @@ const App = () => {
                 borderWidth: 1,
               }}
               rounded>
-              <TextInput placeholder="" 
+              <TextInput placeholder="Enter your cnic" 
                style={{height: 40, width: '90%'}}
                onChangeText={(val)=> setCnic(val)}
                />

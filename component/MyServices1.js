@@ -11,9 +11,11 @@ import {
   View,
   StatusBar,
   Image,
+  FlatList,
   StyleSheet,
   ScrollView,
   key,
+  AsyncStorage,
   ActivityIndicator
 } from 'react-native';
 import {Container, Text, Icon, Item, Input, Card, CardItem} from 'native-base';
@@ -21,12 +23,59 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
+import {API_URL} from './constants/constans'
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
   let navigation = useNavigation();
   let [show, setShow] = useState(false);
+  const [token, setToken] = React.useState(null)
+  const [serviceArray, setServiceArray] = React.useState([token])
+
+  React.useEffect(() =>  {
+    alert(token)
+    _getUserData()
+    getAllService()
+ 
+ }, [])
+
+_getUserData = async () =>{
+    let data = await AsyncStorage.getItem('User')
+    let mdata = JSON.parse(data)
+    if(data != null){
+      let currentUser = mdata
+      setToken(currentUser.token)
+    }
+  }
+  const getAllService = () => {
+    fetch(API_URL + 'service' , {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' +token
+        },
+    })
+
+        .then((response) => response.json())
+        .then((responseJson) => {
+          // alert(JSON.stringify(responseJson))
+          console.log(responseJson.services)
+            if(responseJson.status === 'success'){
+              console.log(responseJson)
+              setServiceArray(responseJson.services)
+            }else if (responseJson.status === 'Authorization Token not found'){
+              alert('Authorization Token not found')
+            }
+        })
+
+        .catch((error) => {
+          alert(error)
+        })
+}
+
+
 
   return (
     <Container
@@ -111,20 +160,20 @@ const App = () => {
           style={{marginRight: '2%', fontSize: 40}}
         />
       </View>
-      <ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: '3%',
-            height:'50%',
-            width: "100%",
-            backgroundColor:'red'
-          }}>
-          {/* <ActivityIndicator  size="large" color="#fe019a" style={{marginTop:"50%"}}/> */}
-          <Text style={{fontSize:30}}> Hello </Text>
+      <View>
+            {/* <FlatList
+                data = {serviceArray}
+                renderItem = {({item})=>
+                <View style = {{width: '90%' ,height: 60, alignItems: 'center'}}>
+                   
+                   <Text> </Text>
+                   <Text> </Text>
+                </View>
+
+                }
+            /> */}
+            
         </View>
-      </ScrollView>
     </Container>
   );
 };

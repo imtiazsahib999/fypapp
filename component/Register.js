@@ -32,6 +32,8 @@ const App = ({navigation, props}) => {
   const [phone, setPhone] = React.useState(null)
   const [email, setEmail] = React.useState(null)
   const [cnic, setCnic] = React.useState(null)
+  const [admin, setAdmin] = React.useState('1')
+  const [level, setLevel] = React.useState(null)
   const [education, setEducation] = React.useState(null)
   const [gender, setGender] = React.useState(null)
   const onChange = (event, selectedDate) => {
@@ -42,7 +44,7 @@ const App = ({navigation, props}) => {
   const signUpHandle = () => {
 
     if (date === null || firstName === null || lastName === null || password === null ||
-        phone === null || email === null || cnic === null || education === null || gender === null) {
+        phone === null || email === null || cnic === null || admin === null || level === null||education === null || gender === null) {
        
         Alert.alert(
             'Wrong Input!',
@@ -67,6 +69,8 @@ const App = ({navigation, props}) => {
             password: password,
             education: education,
             gender: gender,
+            isAdmin: admin,
+            level: level,
             dob: date
           })
         })
@@ -311,6 +315,29 @@ const App = ({navigation, props}) => {
                 <Icon
                   active
                   name="human-male-female"
+                  type="MaterialCommunityIcons"
+                  style={{fontSize: 18}}
+                />
+              </Item>
+            </View>
+            <View style={styles.inputOuter}>
+              <Text style={{marginLeft: '1%', fontSize: 14}}> Level </Text>
+              <Item
+                style={{
+                  width: '95%',
+                  marginLeft: '2%',
+                  borderColor: 'black',
+                  borderWidth: 1,
+                }}
+                rounded>
+                <TextInput 
+                onChangeText={(val) => setLevel(val)}
+                placeholder="yourlevel"
+                style={{height: 40, width: '90%'}}
+               />
+                <Icon
+                  active
+                  name="book"
                   type="MaterialCommunityIcons"
                   style={{fontSize: 18}}
                 />

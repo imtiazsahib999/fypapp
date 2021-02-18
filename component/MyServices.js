@@ -330,7 +330,7 @@ const Services = ({navigation}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
-              onPress={() => setCurrentScreen(Screen1)}>
+              onPress={() => <Text></Text>}>
               <Image
                 source={require('./assets/9.png')}
                 style={{height: 30, width: 30}}

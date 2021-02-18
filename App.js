@@ -43,6 +43,10 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Youth from './component/service/youthAndIt';
 import ServiceComponent from './component/serviceComponent/serviceComponent';
 import Event from './component/event';
+import ForgotPass from './component/forgotPass';
+import AdminNav from './component/admin/adminNavigator/adminDrwerNavigtor';
+import AdminLogin from './component/admin/adminLogin';
+import AdminEvents from './component/admin/adminEvents';
 const Stack = createStackNavigator();
 
 const MainApp = () => {
@@ -65,6 +69,17 @@ const MainApp = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
+          name="AdminLogin"
+          component={AdminLogin}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="ForgotPass"
+          component={ForgotPass}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="Register"
           component={Register}
           options={{headerShown: false}}
@@ -77,6 +92,11 @@ const MainApp = () => {
         <Stack.Screen
           name="Nav"
           component={Nav}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AdminNav"
+          component={AdminNav}
           options={{headerShown: false}}
         />
         <Stack.Screen
@@ -167,6 +187,11 @@ const MainApp = () => {
          <Stack.Screen
           name="Event"
           component={Event}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AdminEvents"
+          component={AdminEvents}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

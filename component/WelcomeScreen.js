@@ -40,6 +40,12 @@ const App = () => {
         <Text style={styles.btnTxt}>Become a member</Text>
       </Button>
       <Button
+        style={[styles.btns,{backgroundColor:'lightgreen'}]}
+        onPressIn={() => navigation.navigate('AdminLogin')}
+        rounded>
+        <Text style={styles.btnTxt}>Admin Login</Text>
+      </Button>
+      <Button
         warning={true}
         style={styles.btns}
         onPressIn={() => navigation.navigate('General')}

@@ -20,16 +20,15 @@ import {
 import {NavigationActions, StackActions} from 'react-navigation';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {API_URL} from '../constants/constans'; 
+ 
 
 const App = ({navigation, ...props}) => {
     let [show, setShow] = useState(false);
   const [date, setDate] = useState(new Date(1598051730000));
   const [loading, setLoading] = React.useState(false)
   const [title, setTitle] = React.useState(null)
-  const [attachment, setAttachment] = React.useState(null)
   const [description, setDescription] = React.useState(null)
-  const [token, setToken] = React.useState()
+  const [token, setToken] = React.useState(null)
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -38,8 +37,8 @@ const App = ({navigation, ...props}) => {
     };
 
    React.useEffect(() =>  {
-   
-        _getUserData()
+       alert(token)
+        _getUserData(token)
      
      }, [])
 
@@ -52,9 +51,8 @@ const App = ({navigation, ...props}) => {
         }
       }
 
-    const serviceHandle = () => {
-
-        if (date === null || title === null || attachment === null || description === null ) {
+    const eventHandle = () => {
+        if (title === null ||  description === null || date === null) {
            
             Alert.alert(
                 'Wrong Input!',
@@ -64,18 +62,17 @@ const App = ({navigation, ...props}) => {
         }
         else {
             setLoading(true)
-            fetch(API_URL + 'service', {
+            fetch('https://react.codupcloud.com/api/event' , {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization':'Bearer '+token
+                'Authorization': 'Bearer '+token
               },
               body: JSON.stringify({
-                services: title,
-                form_object:{description: description},
-                attachments: attachment,
-                date: date
+                title: title,
+                description: description,
+                expiry: date
                 
               })
             })
@@ -83,28 +80,12 @@ const App = ({navigation, ...props}) => {
               .then((response) => response.json())
               .then((responseData) => {
                 // console.log(responseData)
-                  // alert(JSON.stringify(responseData))
-                  if (responseData.message === 'Request Successfully Saved!'){ 
-                      alert('Request Successfully Saved!')
-                  }else {
-                    alert('Check the fields')
-                  }
-            //            let user = {
-            //              auth: true,
-            //              token: responseData.access_token,
-            //              token_type: responseData.token_type
-                         
-            //            }
-            //            console.log(user)
-            //            AsyncStorage.setItem("User", JSON.stringify(user))
-            //   //          const resetAction = StackActions.reset({
-            //   //               index: 0,
-            //   //               actions: [NavigationActions.navigate({ routeName: 'Nav' })],
-            //   //             });
-            //   //             props.navigation.dispatch(resetAction); 
-            //            navigation.navigate('Nav')
-                //}
-                          
+                if(responseData.status === 'Success'){
+                  alert(JSON.stringify(responseData.message))
+                }else{
+                    alert(JSON.stringify(responseData.message))
+                }
+                
               })
               
               .catch((error) => {
@@ -142,7 +123,7 @@ const App = ({navigation, ...props}) => {
                 fontSize: 18,
               },
             ]}>
-           {props.screenTitle}
+          Admin Event
           </Text>
         </Header>
 
@@ -158,7 +139,7 @@ const App = ({navigation, ...props}) => {
                   borderWidth: 1,
                 }}
                 rounded>
-                <TextInput placeholder="Enter your first name" style={{height: 40, width: '90%'}} 
+                <TextInput placeholder="Title" style={{height: 40, width: '90%'}} 
                 onChangeText={(val)=> setTitle(val)}
                 />
                 <Icon
@@ -180,7 +161,7 @@ const App = ({navigation, ...props}) => {
                   borderWidth: 1,
                 }}
                 rounded>
-                <TextInput placeholder="Enter your cnic" style={{height: 40, width: '90%'}} 
+                <TextInput placeholder="Description" style={{height: 40, width: '90%'}} 
                 onChangeText={(val)=> setDescription(val)}
                 
                 />
@@ -193,29 +174,6 @@ const App = ({navigation, ...props}) => {
               </Item>
             </View>
             
-           
-            <View style={styles.inputOuter}>
-              <Text style={{marginLeft: '1%', fontSize: 14}}> Attachment </Text>
-              <Item
-                style={{
-                  width: '95%',
-                  marginLeft: '2%',
-                  borderColor: 'black',
-                  borderWidth: 1,
-                }}
-                rounded>
-                <TextInput placeholder="Enter your email" style={{height: 40, width: '90%'}}
-                onChangeText={(val)=> setAttachment(val)}
-                
-                />
-                <Icon
-                  active
-                  name="mail"
-                  type="Octicons"
-                  style={{fontSize: 18}}
-                />
-              </Item>
-            </View>
             <View style={styles.inputOuter}>
               <Text style={{marginLeft: '1%', fontSize: 14}}>Expiry Date</Text>
               <Item
@@ -253,7 +211,7 @@ const App = ({navigation, ...props}) => {
             
            
             <Button danger={true} 
-            onPress={() => serviceHandle()}
+            onPress={() => eventHandle()}
             style={styles.btns} rounded>
               <Text>Submit</Text>
             </Button>

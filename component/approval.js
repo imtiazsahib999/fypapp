@@ -12,21 +12,90 @@ import {
   StatusBar,
   Image,
   StyleSheet,
+  TextInput,
   ScrollView,
   key,
-  ActivityIndicator
+  AsyncStorage,
+  ActivityIndicator,
 } from 'react-native';
-import {Container, Text, Icon, Item, Input, Card, CardItem} from 'native-base';
+import {Container, Text, Icon, Item, Form, Button, Input, Card, CardItem} from 'native-base';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useNavigation} from '@react-navigation/native';
 import * as Animatable from 'react-native-animatable';
-
+import {API_URL} from './constants/constans'
 const Tab = createBottomTabNavigator();
 
 const Approval = () => {
   let navigation = useNavigation();
   let [show, setShow] = useState(false);
+  const [loading, setLoading] = React.useState(false)
+  const [title, setTitle] = React.useState(null)
+  const [attachment, setAttachment] = React.useState(null)
+  const [description, setDescription] = React.useState(null)
+  const [token, setToken] = React.useState()
+
+  React.useEffect(() =>  {
+   
+    _getUserData()
+ 
+ }, [])
+
+_getUserData = async () =>{
+    let data = await AsyncStorage.getItem('User')
+    let mdata = JSON.parse(data)
+    if(data != null){
+      let currentUser = mdata
+      setToken(currentUser.token)
+    }
+  }
+  const specificServiceHandle = () => {
+
+    if (title === null || attachment === null || description === null ) {
+       
+        Alert.alert(
+            'Wrong Input!',
+            'Fields cannot be empty.',
+            [{ text: 'Okay' }],
+        );
+    }
+    else {
+        setLoading(true)
+        fetch(API_URL + 'service/', {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':'Bearer '+token
+          },
+          body: JSON.stringify({
+            services: title,
+            form_object: description,
+            attachments: attachment
+            
+          })
+        })
+  
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log(responseData)
+              alert(JSON.stringify(responseData))
+              // if (responseData.message === 'Request Successfully Saved!'){ 
+              //     alert('Request Successfully Saved!')
+              // }else {
+              //   alert('Check the fields')
+              // }  
+                      
+          })
+          
+          .catch((error) => {
+            alert(error)
+            setLoading(false)
+          })
+    }
+
+}
 
   return (
     <Container
@@ -111,20 +180,85 @@ const Approval = () => {
           style={{marginRight: '2%', fontSize: 40}}
         />
       </View>
-      <ScrollView>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginTop: '3%',
-            height:'50%',
-            width: "100%",
-            backgroundColor:'red'
-          }}>
-          {/* <ActivityIndicator  size="large" color="#fe019a" style={{marginTop:"50%"}}/> */}
-          <Text style={{fontSize:30}}> Byr </Text>
-        </View>
-      </ScrollView>
+   
+      <Form style={styles.form}>
+          <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+            <View style={styles.inputOuter}>
+              <Text style={{marginLeft: '1%', fontSize: 14}}>Title </Text>
+              <Item
+                style={{
+                  width: '95%',
+                  marginLeft: '2%',
+                  borderColor: 'black',
+                  borderWidth: 1,
+                }}
+                rounded>
+                <TextInput placeholder="Enter your title" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setTitle(val)}
+                />
+                <Icon
+                  active
+                  name="account"
+                  type="MaterialCommunityIcons"
+                  style={{fontSize: 18}}
+                />
+              </Item>
+            </View>
+            
+            <View style={styles.inputOuter}>
+              <Text style={{marginLeft: '1%', fontSize: 14}}>Description</Text>
+              <Item
+                style={{
+                  width: '95%',
+                  marginLeft: '2%',
+                  borderColor: 'black',
+                  borderWidth: 1,
+                }}
+                rounded>
+                <TextInput placeholder="Enter Description" style={{height: 40, width: '90%'}} 
+                onChangeText={(val)=> setDescription(val)}
+                
+                />
+                <Icon
+                  active
+                  name="contacts"
+                  type="AntDesign"
+                  style={{fontSize: 18}}
+                />
+              </Item>
+            </View>
+            
+           
+            <View style={styles.inputOuter}>
+              <Text style={{marginLeft: '1%', fontSize: 14}}> Attachment </Text>
+              <Item
+                style={{
+                  width: '95%',
+                  marginLeft: '2%',
+                  borderColor: 'black',
+                  borderWidth: 1,
+                }}
+                rounded>
+                <TextInput placeholder="Enter attachment" style={{height: 40, width: '90%'}}
+                onChangeText={(val)=> setAttachment(val)}
+                
+                />
+                <Icon
+                  active
+                  name="mail"
+                  type="Octicons"
+                  style={{fontSize: 18}}
+                />
+              </Item>
+            </View>
+            
+            <Button danger={true} 
+            onPress={() => specificServiceHandle()}
+            style={styles.btns} rounded>
+              <Text>Submit</Text>
+            </Button>
+            </KeyboardAwareScrollView>
+        </Form>
     </Container>
   );
 };
@@ -149,9 +283,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
   inputOuter: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: '2%',
+    marginTop: 15,
+  },
+  form: {
+    height: '90%',
+    width: '95%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginTop: '3%',
   },
   text: {
     textTransform: 'uppercase',
