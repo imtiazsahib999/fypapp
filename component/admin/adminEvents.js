@@ -7,7 +7,7 @@
  */
 
 import React, {useState} from 'react';
-import {View, StatusBar, Platform, TextInput, Alert, StyleSheet, AsyncStorage} from 'react-native';
+import {View, StatusBar, Platform, TextInput, Alert, StyleSheet, AsyncStorage } from 'react-native';
 import {
   Container,
   Button,
@@ -20,7 +20,6 @@ import {
 import {NavigationActions, StackActions} from 'react-navigation';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
- 
 
 const App = ({navigation, ...props}) => {
     let [show, setShow] = useState(false);
@@ -50,6 +49,7 @@ const App = ({navigation, ...props}) => {
           setToken(currentUser.token)
         }
       }
+   
 
     const eventHandle = () => {
         if (title === null ||  description === null || date === null) {

@@ -121,7 +121,7 @@ const App = () => {
             marginTop: '3%',
           }}>
         </View>
-          <TouchableOpacity  onPress = {() => navigation.navigate('')}
+          <TouchableOpacity  onPress = {() => navigation.navigate('AdminAnnounce')}
           style={{width: '40%', }}>
             <CardItem
               cardBody
@@ -156,7 +156,7 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
           }}>
-          <TouchableOpacity onPress = {() => navigation.navigate('')}
+          <TouchableOpacity onPress = {() => navigation.navigate('AdminBudget')}
            style={{width: '40%',marginLeft:'2%'}}>
             <CardItem
               cardBody

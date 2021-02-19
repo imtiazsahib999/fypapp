@@ -14,8 +14,8 @@ import {
   TextInput,
   Alert,
   StyleSheet,
-  KeyboardAvoidingView,
   AsyncStorage,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {
   Container,
@@ -32,7 +32,6 @@ import {useNavigation, } from '@react-navigation/native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {API_URL} from '../component/constants/constans';
 import {NavigationActions, StackActions} from 'react-navigation';
-
 
 
 const App = () => {

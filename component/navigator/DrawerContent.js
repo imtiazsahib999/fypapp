@@ -90,6 +90,9 @@ export default function DrawerContent(props) {
                 <Icon name="exit-to-app" color={color} size={size} />
               )}
               label="Announcement"
+              onPress={() => {
+                props.navigation.navigate('Announcements');
+              }}
             />
             <DrawerItem
               icon={({color, size}) => (

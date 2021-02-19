@@ -20,7 +20,7 @@ import {
 import {NavigationActions, StackActions} from 'react-navigation';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {API_URL} from '../constants/constans'; 
+import {API_URL} from '../constants/constans';
 
 const App = ({navigation, ...props}) => {
     let [show, setShow] = useState(false);
@@ -89,21 +89,6 @@ const App = ({navigation, ...props}) => {
                   }else {
                     alert('Check the fields')
                   }
-            //            let user = {
-            //              auth: true,
-            //              token: responseData.access_token,
-            //              token_type: responseData.token_type
-                         
-            //            }
-            //            console.log(user)
-            //            AsyncStorage.setItem("User", JSON.stringify(user))
-            //   //          const resetAction = StackActions.reset({
-            //   //               index: 0,
-            //   //               actions: [NavigationActions.navigate({ routeName: 'Nav' })],
-            //   //             });
-            //   //             props.navigation.dispatch(resetAction); 
-            //            navigation.navigate('Nav')
-                //}
                           
               })
               
