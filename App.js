@@ -48,7 +48,9 @@ import AdminNav from './component/admin/adminNavigator/adminDrwerNavigtor';
 import AdminLogin from './component/admin/adminLogin';
 import AdminEvents from './component/admin/adminEvents';
 import AdminAnnounce from './component/admin/adminAnnouncement';
-import AdminBudget from './component/admin/adminBudget'
+import BudgetComponent from './component/admin/budgetComponent/budgetComponent';
+import AdminService from './component/admin/adminService';
+import AllUser from './component/admin/allUser';
 const Stack = createStackNavigator();
 
 const MainApp = () => {
@@ -202,8 +204,18 @@ const MainApp = () => {
           options={{headerShown: false}}
         />
         <Stack.Screen
-          name="AdminBudget"
-          component={AdminBudget}
+          name="BudgetComponent"
+          component={BudgetComponent}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AdminService"
+          component={AdminService}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AllUser"
+          component={AllUser}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

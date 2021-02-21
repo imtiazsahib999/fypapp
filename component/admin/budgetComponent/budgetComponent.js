@@ -41,7 +41,7 @@ const App = ({navigation, ...props}) => {
     const [budgetArray, setBudgetArray] = React.useState([])
 
     React.useEffect(() =>  {
-        
+       
         _getUserData()
         getBudget()
      }, [])
@@ -138,7 +138,7 @@ const App = ({navigation, ...props}) => {
         </TouchableOpacity>
       </Left>
       <Body>
-        <Text>{props.screenTitle}</Text>
+        <Text>Budget</Text>
       </Body>
       <Right>
         <TouchableOpacity onPress={() => setModal(true)}>
@@ -152,7 +152,7 @@ const App = ({navigation, ...props}) => {
           key={item => item.id}
           renderItem={ ({item}) => 
               <View style={styles.container}>
-              <View style={{width:'90%'}}>
+              <View style={{width:'80%',marginLeft:20}}>
               <Text style={styles.title}>Education Budget:   {item.education_budget}</Text>
                   <Text style={styles.title}>House Budget:     {item.house_budget}</Text>
                   <Text style={styles.title}>Marriage Budget:  {item.marriage_budget}</Text>
@@ -162,17 +162,7 @@ const App = ({navigation, ...props}) => {
 
 
               </View>
-              
-              <View style={{width:'10%',alignItems:'flex-end',alignSelf:'center'}}>
-                <Icon onPress={()=>{setModalDel2(true);setIdDel(item.id)}} 
-                style={{marginBottom:10,color:'#ff9d96',}} active name="delete" type="MaterialCommunityIcons"  />
-                <Icon onPress={()=>{
-                  setModalDel(true);
-                  setIdDel(item.id);
-                  
-                  }} style={{color:'#67bcdb',}} active name="edit" type="Feather" />
-              </View>
-          </View>
+             </View>
           }
           keyExtractor={(item) => item.id.toString()}
 
@@ -225,7 +215,6 @@ const App = ({navigation, ...props}) => {
               rounded>
               <TextInput placeholder="Enter your password" 
                style={{height: 40, width: '90%'}}
-              secureTextEntry={true}
               onChangeText={(val)=> setEductnBud(val)}
               />
               <Icon active name="lock-closed" type="Ionicons" />
@@ -315,158 +304,20 @@ const App = ({navigation, ...props}) => {
                     active={true}
                     onPressIn={() => addBudget()}
                     >
-                    <Text style={styles.btnTxt}>Add</Text>
-                  </Button>
-                </View> 
-                
-              </View>
-            </View>
-          {/* </Modal>
-          <Modal
-            animationType={'fade'}
-            transparent={true}
-            visible={modalDel}
-            onRequestClose={() => setModalDel(false)}
-            on
-            >
-            <View style={styles.modalBody}>
-              <View style={styles.modalContainer}>
-                <View style={{width:'100%'}}>
-                <View style={{flexDirection:'row',alignSelf:'center',marginVertical:10}}>
-                    <Text style={{fontSize:14,fontWeight:'bold',color:'#187ce6',}}>Update Announcement</Text>
-                  </View>
-                  <View style={{flexDirection: 'row', alignItems: 'center',marginBottom:10}}>
-                    <View style={{flex: 1, height: 1, backgroundColor: 'lightgray'}} />
-                  </View>
-                  <View style={styles.inputOuter}>
-                    <Text style={{marginLeft: '1%', marginTop: '2%', fontSize: 14}}>
-                      {' '}
-                      Title{' '}
-                    </Text>
-                    <Item
-                      style={{
-                        width: '95%',
-                        marginLeft: '2%',
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        marginBottom:10
-                      }}
-                      rounded>
-                      <Input 
-                      style={{height:40}}
-                        value={title}
-                        onChangeText={(val) => settitle(val)}
-                        placeholder=""
-                      />
-                    </Item>
-                  </View>
-                  <View style={styles.inputOuter}>
-                    <Text style={{marginLeft: '1%', marginTop: '2%', fontSize: 14}}>
-                      {' '}
-                      Description{' '}
-                    </Text>
-                    <Item
-                      style={{
-                        width: '95%',
-                        marginLeft: '2%',
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        marginBottom:10
-                      }}
-                      rounded>
-                      <Input 
-                      multiline={true}
-                      style={{height:100,textAlignVertical: 'top'}}
-                  
-                        onChangeText={(val) => setdescription(val)}
-                        placeholder=""
-                      />
-                    </Item>
-                  </View>
-                  <View style={styles.inputOuter}>
-                    <Text style={{marginLeft: '1%', marginTop: '2%', fontSize: 14}}>
-                      {' '}
-                      Expiry{' '}
-                    </Text>
-                    <Item
-                      style={{
-                        width: '95%',
-                        marginLeft: '2%',
-                        borderColor: 'black',
-                        borderWidth: 1,
-                        marginBottom:10
-                      }}
-                      rounded>
-                        {show && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={new Date()}
-                  is24Hour={true}
-                  display="default"
-                  onChange={onChange}
-                />
-              )}
-                      <Input
-                          placeholder=""
-                          style={{height: 40}}
-                          value={date.toString().slice(0, 15)}
-                          onTouchStart={() => setShow(true)}
-                        />
-                    </Item>
-                  </View>
-                  <Button
-                    danger={true}
-                    style={[styles.btns]}
-                    rounded
-                    active={true}
-                    onPressIn={() => updateService()}
-                    >
-                    <Text style={styles.btnTxt}>Update</Text>
-                  </Button>
-                </View> 
-                
-              </View>
-            </View>
-          </Modal> */}
-          <Modal
-            animationType={'fade'}
-            transparent={true}
-            visible={modalDel2}
-            onRequestClose={() => setModalDel2(false)}
-            on
-            >
-            <View style={styles.modalBody}>
-              <View style={styles.modalContainerDel}>
-                <View style={{width:'100%'}}>
-                <View style={{flexDirection:'row',alignSelf:'center',marginVertical:10}}>
-                    <Text style={{fontSize:14,fontWeight:'bold',color:'#187ce6',}}>Delete announcement ?</Text>
-                  </View>
-                  <View style={{flexDirection: 'row', alignItems: 'center',marginBottom:10}}>
-                    <View style={{flex: 1, height: 1, backgroundColor: 'lightgray'}} />
-                  </View>
-                  <Button
-                    danger={true}
-                    style={[styles.btns]}
-                    rounded
-                    active={true}
-                    onPressIn={() => Delete()}
-                    >
-                    <Text style={styles.btnTxt}>Delete</Text>
+                    <Text style={styles.btnTxt}>Add Budget</Text>
                   </Button>
                 </View> 
                 
               </View>
             </View>
           </Modal>
-          </Modal>
-  </Container>    
+            </Container>    
 );
 };
 
 const styles = StyleSheet.create({
   container: {
-    alignItems:'center',
-    alignSelf:'center',
+    alignItems: 'flex-end',
     borderRadius : 10,
     width: '90%',
     borderWidth: 1,

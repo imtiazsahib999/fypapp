@@ -156,7 +156,7 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
           }}>
-          <TouchableOpacity onPress = {() => navigation.navigate('AdminBudget')}
+          <TouchableOpacity onPress = {() => navigation.navigate('BudgetComponent')}
            style={{width: '40%',marginLeft:'2%'}}>
             <CardItem
               cardBody
@@ -170,7 +170,7 @@ const App = () => {
               <Text style={styles.text}>Budgets</Text>
             </CardItem>
           </TouchableOpacity>
-          <TouchableOpacity onPress = {() => navigation.navigate('')}
+          <TouchableOpacity onPress = {() => navigation.navigate('AdminService')}
            style={{width: '40%', marginLeft: '3%'}}>
             <CardItem
               cardBody
@@ -191,7 +191,7 @@ const App = () => {
             justifyContent: 'center',
             marginTop: '3%',
           }}>
-          <TouchableOpacity onPress = {() => navigation.navigate('')}
+          <TouchableOpacity onPress = {() => navigation.navigate('AllUser')}
           style={{width: '40%'}}>
             <CardItem
               cardBody
